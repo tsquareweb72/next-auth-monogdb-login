@@ -7,6 +7,11 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+:root_dark {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -31,3 +36,17 @@ body {
     text-wrap: balance;
   }
 }
+/* Forms Hyper links on Login Register forgot-password */
+.form_link {
+  @apply block text-center text-blue-500 text-lg hover:underline underline-offset-4 mt-2;
+}
+.form_link_left {
+  @apply block float-left text-blue-500 text-lg hover:underline underline-offset-4 mt-2;
+}
+.form_link_right {
+  @apply block float-right text-blue-500 text-lg hover:underline underline-offset-4 mt-2;
+}
+.form_alt_txt {
+  @apply text-center text-lg text-gray-500 mt-4;
+}
+
