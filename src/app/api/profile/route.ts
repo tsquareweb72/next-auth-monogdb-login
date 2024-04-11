@@ -1,24 +1,36 @@
 import User from "@/models/User";
 import connect from "@/utils/db";
-import crypto from "crypto";
 import { NextResponse } from "next/server";
 
-
 export const POST = async (request: any) => {
-  const { token } = await request.json();
+  const { firstName, lastName, account, email } = await request.json();
 
   await connect();
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
-  const user = await User.findOne({
-    resetToken: hashedToken,
-    resetTokenExpiry: { $gt: Date.now() },
-  });
+  const existingUser = await User.findOne({ email });
+  const existingAccount = await User.findOne({ account });
 
-  if(!user) {
-    return new NextResponse("Password recovery expired.", {status: 400});
+  if (existingUser) {
+    return new NextResponse("Email is already in use", { status: 400 });
+  } 
+  else if( existingAccount){
+    return new NextResponse("Account is already registered", { status: 401});
   }
 
-  return new NextResponse(JSON.stringify(user), { status: 200 });
+ 
+  const currentUser = new User({
+    firstName,
+    lastName,
+    account,
+    email,
+  });
 
+  try {
+    await currentUser.save();
+    return new NextResponse("user is registered", { status: 200 });
+  } catch (err: any) {
+    return new NextResponse(err, {
+      status: 500,
+    });
+  }
 };
