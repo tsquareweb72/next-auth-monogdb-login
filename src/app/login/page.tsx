@@ -86,12 +86,7 @@ const Login = () => {
           <div className="flow-root gap-4">
               <ul>
                 <div className="flew items-center justify-between gap-10">
-                  <Link
-                    className="form_link_left"
-                    href="/forgot-password"
-                  >
-                    <li>Forgot Password</li>
-                  </Link>
+
                   <Link
                     className="form_link_right"
                     href="/register"
